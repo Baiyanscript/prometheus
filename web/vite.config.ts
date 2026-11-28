@@ -6,7 +6,7 @@ import { prometheusLuaPlugin } from "./src/vite/prometheusLuaPlugin"
 
 export default defineConfig(({ command }) => {
   const isDevServer = command === "serve"
-  const docsPathRegex = /^\/(?:Prometheus\/)?docs\/?$/
+  const docsPathRegex = /^\/(?:prometheus\/)?docs\/?$/i
   const rewriteDocsRequest = (url: string) => {
     const [pathname, search = ""] = url.split("?", 2)
     if (!pathname || !docsPathRegex.test(pathname)) {
@@ -19,7 +19,7 @@ export default defineConfig(({ command }) => {
     // Use repo base path for production/preview, but root path for local dev.
     // This keeps runtime asset URLs (including Wasm files loaded by dependencies)
     // valid in both environments.
-    base: isDevServer ? "/" : "/Prometheus/",
+    base: isDevServer ? "/" : "/prometheus/",
     plugins: [
       {
         name: "serve-docs-index-directly",
